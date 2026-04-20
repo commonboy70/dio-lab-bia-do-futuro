@@ -64,15 +64,6 @@ flowchart TD
     E --> F[Resumo/Insights]
     F --> G[Resposta ao Usuário]
 ```
-Estrutura dos Campos
-
-| Campo     | Descrição                                            |
-| --------- | ---------------------------------------------------- |
-| data      | Data da transação (formato YYYY-MM-DD)               |
-| descricao | Nome ou descrição do gasto/receita                   |
-| categoria | Categoria da transação (ex: alimentação, transporte) |
-| valor     | Valor monetário da transação                         |
-| tipo      | Indica se é `entrada` (receita) ou `saida` (despesa) |
 
 ### Diagrama
 
@@ -92,7 +83,15 @@ Arquivo: `data/transacoes.csv`
 
 Este arquivo contém o histórico de transações financeiras do usuário e é utilizado pelo agente para gerar análises e insights.
 
+Estrutura dos Campos
 
+| Campo     | Descrição                                            |
+| --------- | ---------------------------------------------------- |
+| data      | Data da transação (formato YYYY-MM-DD)               |
+| descricao | Nome ou descrição do gasto/receita                   |
+| categoria | Categoria da transação (ex: alimentação, transporte) |
+| valor     | Valor monetário da transação                         |
+| tipo      | Indica se é `entrada` (receita) ou `saida` (despesa) |
 
 ### Componentes
 
