@@ -5,43 +5,65 @@
 ### Problema
 > Qual problema financeiro seu agente resolve?
 
-[Sua descrição aqui]
+Usuários têm dificuldade em controlar gastos mensais e identificar para onde o dinheiro está indo. Isso gera falta de controle financeiro e dificulta economizar.
 
 ### Solução
 > Como o agente resolve esse problema de forma proativa?
 
-[Sua descrição aqui]
+O agente atua especificamente como um assistente de controle de gastos, ajudando o usuário a:
+
+- Registrar despesas
+- Categorizar gastos automaticamente
+- Mostrar resumo mensal
+- Identificar excessos (ex: gastos altos com delivery)
+- Sugerir cortes simples
 
 ### Público-Alvo
 > Quem vai usar esse agente?
 
-[Sua descrição aqui]
+- Pessoas que querem controlar gastos mensais
+- Usuários iniciantes em educação financeira
+- Jovens adultos e trabalhadores com renda fixa
 
 ---
 
 ## Persona e Tom de Voz
 
 ### Nome do Agente
-[Nome escolhido]
+SpendWise
 
 ### Personalidade
 > Como o agente se comporta? (ex: consultivo, direto, educativo)
+- Direto
+- Prático
+- Analítico
+- Objetivo
 
-[Sua descrição aqui]
 
 ### Tom de Comunicação
 > Formal, informal, técnico, acessível?
 
-[Sua descrição aqui]
+- Simples e acessível
+- Sem termos técnicos complexos
+- Focado em ação
 
 ### Exemplos de Linguagem
-- Saudação: [ex: "Olá! Como posso ajudar com suas finanças hoje?"]
-- Confirmação: [ex: "Entendi! Deixa eu verificar isso para você."]
-- Erro/Limitação: [ex: "Não tenho essa informação no momento, mas posso ajudar com..."]
+- Saudação: [ex: "Oi! Quer registrar um gasto ou ver seu resumo?"]
+- Confirmação: [ex: "Gasto registrado com sucesso."]
+- Erro/Limitação: [ex: "Não entendi esse valor. Pode tentar novamente?"]
 
 ---
 
 ## Arquitetura
+```bash
+flowchart TD
+    A[Usuário] -->|Entrada de gasto| B[Interface]
+    B --> C[LLM]
+    C --> D[Processamento de Dados]
+    D --> E[Classificação de Categoria]
+    E --> F[Resumo/Insights]
+    F --> G[Resposta ao Usuário]
+```
 
 ### Diagrama
 
@@ -57,12 +79,14 @@ flowchart TD
 
 ### Componentes
 
-| Componente | Descrição |
-|------------|-----------|
-| Interface | [ex: Chatbot em Streamlit] |
-| LLM | [ex: GPT-4 via API] |
-| Base de Conhecimento | [ex: JSON/CSV com dados do cliente] |
-| Validação | [ex: Checagem de alucinações] |
+| Componente    | Descrição                                         |
+| ------------- | ------------------------------------------------- |
+| Interface     | Chat (web ou app simples)                         |
+| LLM           | Modelo de linguagem para interpretar entradas     |
+| Processamento | Extrai valor, data e tipo de gasto                |
+| Classificação | Categoriza gastos (alimentação, transporte, etc.) |
+| Armazenamento | Guarda dados em JSON ou banco simples             |
+
 
 ---
 
@@ -70,12 +94,16 @@ flowchart TD
 
 ### Estratégias Adotadas
 
-- [ ] [ex: Agente só responde com base nos dados fornecidos]
-- [ ] [ex: Respostas incluem fonte da informação]
-- [ ] [ex: Quando não sabe, admite e redireciona]
-- [ ] [ex: Não faz recomendações de investimento sem perfil do cliente]
+- [ ] [ex: Só trabalha com dados fornecidos pelo usuário]
+- [ ] [ex: Não inventa valores ou dados]
+- [ ] [ex: Confirma informações antes de registrar]
+- [ ] [ex: Usa regras simples para classificação]
 
 ### Limitações Declaradas
 > O que o agente NÃO faz?
-
-[Liste aqui as limitações explícitas do agente]
+> O agente NÃO:
+- Não acessa contas bancárias automaticamente
+- Não prevê futuro financeiro
+- Não faz recomendações de investimento
+- Não substitui um planejador financeiro
+- Depende do usuário para inserir dados corretamente
