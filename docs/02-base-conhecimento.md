@@ -2,14 +2,12 @@
 
 ## Dados Utilizados
 
-Descreva se usou os arquivos da pasta `data`, por exemplo:
+O agente utiliza um conjunto simples de dados financeiros para análise de gastos:
 
-| Arquivo | Formato | Utilização no Agente |
-|---------|---------|---------------------|
-| `historico_atendimento.csv` | CSV | Contextualizar interações anteriores |
-| `perfil_investidor.json` | JSON | Personalizar recomendações |
-| `produtos_financeiros.json` | JSON | Sugerir produtos adequados ao perfil |
-| `transacoes.csv` | CSV | Analisar padrão de gastos do cliente |
+| Arquivo          | Formato | Utilização no Agente                                             |
+| ---------------- | ------- | ---------------------------------------------------------------- |
+| `transacoes.csv` | CSV     | Armazenar e analisar histórico de receitas e despesas do usuário |
+
 
 > [!TIP]
 > **Quer um dataset mais robusto?** Você pode utilizar datasets públicos do [Hugging Face](https://huggingface.co/datasets) relacionados a finanças, desde que sejam adequados ao contexto do desafio.
@@ -19,8 +17,25 @@ Descreva se usou os arquivos da pasta `data`, por exemplo:
 ## Adaptações nos Dados
 
 > Você modificou ou expandiu os dados mockados? Descreva aqui.
+> 
+Os dados foram estruturados e padronizados para facilitar o processamento automático pelo agente:
 
-[Sua descrição aqui]
+- Padronização de datas no formato YYYY-MM-DD
+- Classificação de transações em categorias fixas:
+    alimentação
+    transporte
+    moradia
+    saúde
+    lazer
+    receita
+- Separação clara entre entrada (receitas) e saida (despesas)
+- Valores numéricos normalizados (formato decimal)
+
+Essas adaptações permitem:
+
+- Cálculo de totais por categoria
+- Identificação de padrões de consumo
+- Geração de insights simples
 
 ---
 
@@ -28,13 +43,18 @@ Descreva se usou os arquivos da pasta `data`, por exemplo:
 
 ### Como os dados são carregados?
 > Descreva como seu agente acessa a base de conhecimento.
-
-[ex: Os JSON/CSV são carregados no início da sessão e incluídos no contexto do prompt]
-
+> 
+O arquivo transacoes.csv é carregado no início da execução do agente e armazenado em memória (ex: estrutura de lista ou dataframe).
+> 
 ### Como os dados são usados no prompt?
 > Os dados vão no system prompt? São consultados dinamicamente?
+> 
+Os dados não são totalmente enviados ao modelo para evitar sobrecarga.
 
-[Sua descrição aqui]
+Em vez disso:
+- O sistema processa os dados previamente
+- Gera resumos (totais, categorias, alertas)
+- Apenas essas informações resumidas são incluídas no prompt do modelo
 
 ---
 
@@ -43,13 +63,25 @@ Descreva se usou os arquivos da pasta `data`, por exemplo:
 > Mostre um exemplo de como os dados são formatados para o agente.
 
 ```
-Dados do Cliente:
-- Nome: João Silva
-- Perfil: Moderado
-- Saldo disponível: R$ 5.000
+Resumo Financeiro do Usuário:
+
+Total de entradas: R$ 5.000
+Total de despesas: R$ 2.488,90
+
+Gastos por categoria:
+- Moradia: R$ 1.380
+- Alimentação: R$ 570
+- Transporte: R$ 295
+- Saúde: R$ 188
+- Lazer: R$ 55,90
+
+Principais insights:
+- Maior gasto: Moradia
+- Alimentação está acima da média esperada
+- Possível oportunidade de economia em lazer e delivery
 
 Últimas transações:
-- 01/11: Supermercado - R$ 450
-- 03/11: Streaming - R$ 55
-...
+- 25/10: Combustível - R$ 250
+- 20/10: Academia - R$ 99
+- 15/10: Conta de Luz - R$ 180
 ```
